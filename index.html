@@ -21,9 +21,10 @@
           var allMs = 0;
           var allCount = 0;
           var highest = 0;
-          socket.on('message', function () {
-            var date = +new Date
-              , ms = date - lastDate
+          socket.on('message', function (data) {
+            var serverDate = data.date;
+            var date = +new Date(data.date)
+              , ms = date - lastDate;
             allMs += ms;
             allCount++;
             if (ms > highest) highest = ms;
@@ -60,7 +61,7 @@
     </style>
   </head>
   <body>
-    <h1>Socket.IO v<span id="v"></span> - <em id="transport"></em> count: <span id="c"></span>, latency (mean): <span id="l"></span> ms, highest: <span id="h"></span> ms</h1>
+    <h1>Socket.IO v<span id="v"></span> - <em id="transport"></em> count: <span id="c"></span>, client->server latency (mean): <span id="l"></span> ms, highest: <span id="h"></span> ms</h1>
     <canvas id="smoothie">
   </body>
 </html>
